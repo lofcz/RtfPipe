@@ -72,6 +72,10 @@ namespace RtfPipe.Model
         while (groups.Peek().Tokens.MoveNext())
         {
           var token = groups.Peek().Tokens.Current;
+          if (token is NonShapePictureTag)
+          {
+            break;
+          }
           if (token is Group childGroup)
           {
             var dest = childGroup.Destination;

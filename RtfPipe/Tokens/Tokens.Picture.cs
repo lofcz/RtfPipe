@@ -14,6 +14,11 @@ namespace RtfPipe.Tokens
     public override string Name => "shppict";
   }
 
+  public class NonShapePictureTag : ControlTag
+  {
+    public override string Name => "nonshppict";
+  }
+
   public class EmfBlip : ControlTag
   {
     public override string Name => "emfblip";

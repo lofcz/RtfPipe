@@ -476,6 +476,8 @@ namespace RtfPipe
           return new PictureTag();
         case "shppict":
           return new ShapePictureTag();
+        case "nonshppict":
+          return new NonShapePictureTag();
         case "emfblip":
           return new EmfBlip();
         case "pngblip":
@@ -710,7 +712,6 @@ namespace RtfPipe
           return new FootnoteReference();
         case "footnote":
           return new Footnote();
-
         default:
           if (number == int.MinValue)
             return new GenericTag(name);

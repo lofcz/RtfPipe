@@ -228,7 +228,12 @@ namespace RtfPipe
           return new Green((byte)number);
         case "blue":
           return new Blue((byte)number);
-
+        case "ctint":
+          return new Tint((byte)number);
+        case "cshade":
+          return new Shade((byte)number);
+        case "caccentsix":
+          return new AccentSix();
         // Paragraph tags
         case "par":
           return new ParagraphBreak();
@@ -713,11 +718,15 @@ namespace RtfPipe
         case "footnote":
           return new Footnote();
         default:
+          if(known.Add(name))
+            Console.WriteLine(name);
           if (number == int.MinValue)
             return new GenericTag(name);
           return new GenericWord(name, number);
       }
     }
+    
+    static HashSet<string> known = new HashSet<string>();
 
     private ColorValue ColorByIndex(int number)
     {

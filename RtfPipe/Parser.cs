@@ -382,17 +382,28 @@ namespace RtfPipe
       {
         if (token is TextToken)
         {
-          if (_context.Peek().TokenBuffer.Count != 3)
+          var tokenBuffer = _context.Peek().TokenBuffer;
+
+          if (tokenBuffer.Count == 3 || tokenBuffer.Count == 6)
           {
-            _document.ColorTable.Add(new ColorValue(0, 0, 0));
+            var colorValue = new ColorValue(
+              _context.Peek().TokenBuffer.OfType<Red>().Single().Value
+              , _context.Peek().TokenBuffer.OfType<Green>().Single().Value
+              , _context.Peek().TokenBuffer.OfType<Blue>().Single().Value);
+
+            if (tokenBuffer.Count == 6)
+            {
+              var tint = _context.Peek().TokenBuffer.OfType<Tint>().FirstOrDefault()?.Value;
+              var shade = _context.Peek().TokenBuffer.OfType<Shade>().FirstOrDefault()?.Value;
+              colorValue = AdjustColor(colorValue, tint, shade);
+            }
+            _document.ColorTable.Add(colorValue);
           }
           else
           {
-            _document.ColorTable.Add(new ColorValue(
-              _context.Peek().TokenBuffer.OfType<Red>().Single().Value
-              , _context.Peek().TokenBuffer.OfType<Green>().Single().Value
-              , _context.Peek().TokenBuffer.OfType<Blue>().Single().Value));
+            _document.ColorTable.Add(new ColorValue(0, 0, 0));
           }
+
           _context.Peek().TokenBuffer.Clear();
         }
         else
@@ -406,6 +417,35 @@ namespace RtfPipe
       }
 
       return token;
+    }
+    
+    private static ColorValue AdjustColor(ColorValue baseColor, int? tint, int? shade)
+    {
+      // Apply Tint (lighten towards white)
+      var actualTint = 255 - (tint ?? 255);
+      int rT =  baseColor.Red + (255 - baseColor.Red) * actualTint/ 255;
+      int gT = baseColor.Green + (255 - baseColor.Green) * actualTint / 255;
+      int bT = baseColor.Blue + (255 - baseColor.Blue) * actualTint / 255;
+
+      // Apply Shade (darken towards black)
+      var actualShade =  255 - (shade ??  255);
+      int rS = rT - rT * actualShade / 255;
+      int gS = gT - gT * actualShade / 255;
+      int bS = bT - bT * actualShade / 255;
+
+      // Ensure values are within the 0-255 range
+      rS = Clamp(rS, 0, 255);
+      gS = Clamp(gS, 0, 255);
+      bS = Clamp(bS, 0, 255);
+
+      return new ColorValue((byte)rS, (byte)gS, (byte)bS);
+    }
+    
+    public static int Clamp(int value, int min, int max)
+    {
+      if (value < min) return min;
+      if (value > max) return max;
+      return value;
     }
 
     private bool IsDestination(IToken token)

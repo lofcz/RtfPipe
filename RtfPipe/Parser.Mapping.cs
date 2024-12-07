@@ -718,8 +718,6 @@ namespace RtfPipe
         case "footnote":
           return new Footnote();
         default:
-          if(known.Add(name))
-            Console.WriteLine(name);
           if (number == int.MinValue)
             return new GenericTag(name);
           return new GenericWord(name, number);
@@ -727,7 +725,6 @@ namespace RtfPipe
     }
     
     static HashSet<string> known = new HashSet<string>();
-
     private ColorValue ColorByIndex(int number)
     {
       if (number >= 0 && number < _document.ColorTable.Count)

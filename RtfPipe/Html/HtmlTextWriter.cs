@@ -301,6 +301,12 @@ namespace RtfPipe
         _xmlDepth--;
       if (_state == InternalState.Element)
       {
+        if (VoidElements.Contains(name))
+        {
+          CloseCurrElement(true);
+          return tag;
+        }
+        
         CloseCurrElement(inXml || _xHtml);
         if (!forceFull && (VoidElements.Contains(name) || inXml))
           return tag;

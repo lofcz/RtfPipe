@@ -138,6 +138,9 @@ namespace RtfPipe.Model
       if (!TryGetElementTag(element.Type, out var tag))
         return;
       
+      if(element.Type == ElementType.TableCell && element.Styles.OfType<CellToken>().FirstOrDefault()?.MergeWithAbove == true)
+        return;
+      
       _writer.WriteStartElement(tag.Name);
       foreach (var attribute in tag.Attributes)
         _writer.WriteAttributeString(attribute.Key, attribute.Value);
@@ -175,7 +178,7 @@ namespace RtfPipe.Model
         }
 
         var startAt = element.Styles.OfType<NumberingStart>().FirstOrDefault()?.Value ?? 1;
-        if (startAt > 1)
+        if (startAt > 1)  
           _writer.WriteAttributeString("start", startAt.ToString());
       }
       else if (element.Type == ElementType.TableCell || element.Type == ElementType.TableHeaderCell)
@@ -183,6 +186,10 @@ namespace RtfPipe.Model
         var colspan = element.Styles.OfType<CellToken>().FirstOrDefault()?.ColSpan ?? 1;
         if (colspan > 1)
           _writer.WriteAttributeString("colspan", colspan.ToString());
+        
+        var rowSpan = element.Styles.OfType<CellToken>().FirstOrDefault()?.RowSpan ?? 1;
+        if (rowSpan > 1)
+          _writer.WriteAttributeString("rowspan", rowSpan.ToString());
       }
 
       ProcessLeadingTabs(element, styleList);
@@ -276,20 +283,50 @@ namespace RtfPipe.Model
       var rows = table.Elements().ToList();
       if (!rows.Any(e => e.Type == ElementType.TableRow))
         rows = rows.SelectMany(e => e.Elements()).ToList();
-      foreach (var row in rows)
+      for (var j = 0; j < rows.Count; j++)
       {
+        var row = rows[j];
         var cells = row.Elements().ToList();
         var startIndex = 0;
         for (var i = 0; i < cells.Count; i++)
         {
-          var token = cells[i].Styles.OfType<CellToken>().Single();
-          var lastIndex = indexDict[token.RightBoundary];
-          token.Index = startIndex;
-          token.ColSpan = lastIndex - startIndex + 1;
+          var cell = cells[i].Styles.OfType<CellToken>().Single();
+          var lastIndex = indexDict[cell.RightBoundary];
+          cell.Index = startIndex;
+          cell.ColSpan = lastIndex - startIndex + 1;
+          if (cell.ColSpan > 1)
+          {
+            
+          }
+          
+          if (cell.MergeWithAbove)
+          {
+            for (int k = j - 1; k >= 0; k--)
+            {
+              var prevRowCells = rows[k].Elements().ToArray();
+
+              var offset = 0;
+              foreach (var prevRowCell in prevRowCells)
+              {
+                var cellAbove = prevRowCell.Styles.OfType<CellToken>().Single();
+                if (offset == startIndex)
+                {
+                  
+                  if (cellAbove.HasRowSpan)
+                  {
+                    cellAbove.RowSpan++; 
+                    break;
+                  }       
+                }
+
+                offset += cellAbove.ColSpan;
+              }
+            }
+          }
 
           // Fix widths to be the widths instead of the right boundary when there is a discrepancy
-          if (startIndex == lastIndex && token.WidthUnit == CellWidthUnit.Twip)
-            widths[startIndex] = new UnitValue(token.Width, UnitType.Twip);
+          if (startIndex == lastIndex && cell.WidthUnit == CellWidthUnit.Twip)
+            widths[startIndex] = new UnitValue(cell.Width, UnitType.Twip);
 
           startIndex = lastIndex + 1;
         }

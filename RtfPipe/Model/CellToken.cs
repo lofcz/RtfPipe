@@ -10,6 +10,9 @@ namespace RtfPipe.Model
     private List<IToken> _styles = new List<IToken>();
 
     public int ColSpan { get; set; } = 1;
+    public int RowSpan { get; set; } = 1;
+    public bool MergeWithAbove { get; set; }
+    public bool HasRowSpan { get; set; }
     public int Index { get; set; }
     public UnitValue RightBoundary { get; }
     public IEnumerable<IToken> Styles => _styles;

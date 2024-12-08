@@ -577,8 +577,14 @@ namespace RtfPipe
           return new CellWidthType((CellWidthUnit)number);
         case "clwWidth":
           return new CellWidth(number);
+        case "clvmgf":
+          return new CellMergeVerticalFirst();
+        case "clvmrg":
+          return new CellMergeVerticalPrevious();
+        case "clmgf":
+          return new CellMergeHorizontalFirst();
         case "clmrg":
-          return new CellMergePrevious();
+          return new CellMergeHorizontalPrevious();
         case "cltxbtlr":
           return new CellWritingMode(WritingMode.VerticalLr);
         case "cltxtbrl":

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RtfPipe.Tests
@@ -16,288 +17,274 @@ namespace RtfPipe.Tests
     [TestMethod]
     public void BulletList()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.bullet_list");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.bullet_list" + ".rtf"));
     }
 
     [TestMethod]
     public void CapsMixed()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.caps_mixed");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.caps_mixed" + ".rtf"));
     }
 
     [TestMethod]
     public void CharStyle()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.char_style");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.char_style" + ".rtf"));
     }
 
     [TestMethod]
     public void CharUpperRanges()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.char_upper_ranges");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.char_upper_ranges" + ".rtf"));
     }
 
     [TestMethod]
     public void ChessTournament()
     {
-      TestConvert("RtfPipe.Tests.Files.phprtflite.chess_tournament");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.chess_tournament" + ".rtf"));
     }
 
     [TestMethod]
     public void Color()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.color");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.color" + ".rtf"));
     }
 
     [TestMethod]
     public void DiffTypesBorder()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.diff_types_border");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.diff_types_border" + ".rtf"));
     }
 
     [TestMethod]
     public void EscapedText()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.escaped_text");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.escaped_text" + ".rtf"));
     }
 
     [TestMethod]
     public void HeadersFooters()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.headers_footers", true);
+      var settings = new RtfHtmlSettings();
+      settings.WithFullDocument();
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.headers_footers" + ".rtf"), settings);
+      
     }
 
     [TestMethod]
     public void HeadingWithSection()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.heading_with_section");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.heading_with_section" + ".rtf"));
     }
 
     [TestMethod]
     public void HeadingsMixed()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.headings_mixed");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.headings_mixed" + ".rtf"));
     }
 
     [TestMethod]
     public void Hyperlink()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.Hyperlink");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.Hyperlink" + ".rtf"));
     }
 
     [TestMethod]
     public void InlineMix()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.inline_mix");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.inline_mix" + ".rtf"));
     }
 
     [TestMethod]
     public void InlineOverPara()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.inline_over_para");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.inline_over_para" + ".rtf"));
     }
 
     [TestMethod]
     public void ItalicsPlain()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.italics_plain");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.italics_plain" + ".rtf"));
     }
 
     [TestMethod]
     public void Japanese()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.japanese");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.japanese" + ".rtf"));
     }
 
     [TestMethod]
     public void ListInTable()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.list_in_table");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.list_in_table" + ".rtf"));
     }
 
     [TestMethod]
     public void ListWithIndentedItems()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.list_with_indented_items");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.list_with_indented_items" + ".rtf"));
     }
 
     [TestMethod]
     public void ListsWithBreaks()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.lists_with_breaks");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.lists_with_breaks" + ".rtf"));
     }
 
     [TestMethod]
     public void Minimal()
     {
-      TestConvert("RtfPipe.Tests.Files.minimal");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.minimal" + ".rtf"));
     }
 
     [TestMethod]
     public void NestedListsIndents()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.nested_lists_indents");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.nested_lists_indents" + ".rtf"));
     }
 
     [TestMethod]
     public void NestedListsIndentsWord()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.nested_lists_indents_word");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.nested_lists_indents_word" + ".rtf"));
     }
 
     [TestMethod]
     public void NestedTableReport()
     {
-      TestConvert("RtfPipe.Tests.Files.nested_table_report");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.nested_table_report" + ".rtf"));
     }
 
     [TestMethod]
     public void NestedTables()
     {
-      TestConvert("RtfPipe.Tests.Files.phprtflite.nested_tables");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.nested_tables" + ".rtf"));
     }
 
     [TestMethod]
     public void OsXTextEditFacesMixed()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.os_x_text_edit_faces_mixed");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.os_x_text_edit_faces_mixed" + ".rtf"));
     }
 
     [TestMethod]
     public void OpenOfficeHelloWorld()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.open_office_hello_world");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.open_office_hello_world" + ".rtf"));
     }
 
     [TestMethod]
     public void OpenOfficeSpecialChar()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.open_office_special_char");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.open_office_special_char" + ".rtf"));
     }
 
     [TestMethod]
     public void OsXTextEditItalicsMixed()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.os_x_text_edit_italics_mixed");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.os_x_text_edit_italics_mixed" + ".rtf"));
     }
 
     [TestMethod]
     public void OutlineList()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.outline_list");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.outline_list" + ".rtf"));
     }
 
     [TestMethod]
     public void ParagraphsFonts()
     {
       Parser.Clock = () => new DateTime(2018, 7, 1);
-      TestConvert("RtfPipe.Tests.Files.phprtflite.paragraphs_fonts");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.paragraphs_fonts" + ".rtf"));
     }
 
     [TestMethod]
     public void ParagraphsInTables()
     {
       Parser.Clock = () => new DateTime(2018, 7, 1);
-      TestConvert("RtfPipe.Tests.Files.phprtflite.paragraphs_in_tables");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.paragraphs_in_tables" + ".rtf"));
     }
 
     [TestMethod]
     public void RtfParserTest0()
     {
-      TestConvert("RtfPipe.Tests.Files.RtfParserTest_0");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.RtfParserTest_0" + ".rtf"));
     }
 
     [TestMethod]
     public void RtfParserTest1()
     {
-      TestConvert("RtfPipe.Tests.Files.RtfParserTest_1");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.RtfParserTest_1" + ".rtf"));
     }
 
     [TestMethod]
     public void RtfParserTest2()
     {
-      TestConvert("RtfPipe.Tests.Files.RtfParserTest_2");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.RtfParserTest_2" + ".rtf"));
     }
 
     [TestMethod]
     public void RtfParserTest3()
     {
-      TestConvert("RtfPipe.Tests.Files.RtfParserTest_3");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.RtfParserTest_3" + ".rtf"));
     }
 
     [TestMethod]
     public void Simplest()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.simplest");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.simplest" + ".rtf"));
     }
 
     [TestMethod]
     public void TableDifferentCellWidths()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.table_different_cell_widths");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.table_different_cell_widths" + ".rtf"));
     }
 
     [TestMethod]
     public void TableEmptyRow()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.table_empty_row");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.table_empty_row" + ".rtf"));
     }
 
     [TestMethod]
     public void Tables()
     {
       Parser.Clock = () => new DateTime(2018, 7, 1);
-      TestConvert("RtfPipe.Tests.Files.phprtflite.tables");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.tables" + ".rtf"));
     }
 
     [TestMethod]
     public void TableSimple()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.table_simple");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.table_simple" + ".rtf"));
     }
 
     [TestMethod]
     public void TableWithHeader()
     {
-      TestConvert("RtfPipe.Tests.Files.rtf2xml.table_with_header");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.rtf2xml.table_with_header" + ".rtf"));
     }
 
     [TestMethod]
     public void Test01()
     {
-      TestConvert("RtfPipe.Tests.Files.Test01");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.Test01" + ".rtf"));
     }
 
     [TestMethod]
     public void Utf8()
     {
       Parser.Clock = () => new DateTime(2018, 7, 1);
-      TestConvert("RtfPipe.Tests.Files.phprtflite.utf8");
+      this.VerifyCurrentLegacyScenario(ReadEmbeddedFile("RtfPipe.Tests.Files.phprtflite.utf8" + ".rtf"));
     }
 
-    private void TestParse(string path)
+    private static string ReadEmbeddedFile(string embeddedPath)
     {
-      using (var stream = File.Exists(path)
-        ? new FileStream(path, FileMode.Open, FileAccess.Read)
-        : Assembly.GetExecutingAssembly().GetManifestResourceStream(path + ".rtf"))
-      {
-        var actual = Rtf.ToHtml(stream);
-        Assert.Fail();
-      }
-    }
-
-    private void TestConvert(string path, bool fullDocument = false)
-    {
-      using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path + ".rtf"))
-      using (var expectedReader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path + ".html")))
-      {
-        var settings = new RtfHtmlSettings();
-        if (fullDocument)
-          settings.WithFullDocument();
-        var actual = Rtf.ToHtml(stream, settings);
-        var expected = expectedReader.ReadToEnd();
-        ParseRender.AssertEqual(expected, actual);
-      }
+      using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(embeddedPath);
+      var r = new StreamReader(stream);
+      var payload = r.ReadToEnd();
+      return payload;
     }
 
     [TestMethod]
@@ -358,32 +345,8 @@ characters which have special meaning in RTF: \{\}\\{\*\htmltag <br>\par}\htmlrt
 </ol>\par
 </body>\par
 </HTML>\par }}";
-      var html = Rtf.ToHtml(rtf);
-      var expected = @" <HTML><head>
-<style>
-<!--
-  /* Style Definitions */
-  p.MsoNormal, li.MsoNormal {font-family:Arial;}
--->
-</style>
-" + "\t" + @"<!-- This is a HTML comment.
-There is a horizontal tab (%x09) character before the comment, 
-and some new lines inside the comment. -->
-</head>
-<body>
-<p
-class=""MsoNormal"">Note the line break inside a P tag. <b>This is a bold text</b> </p>
-<p class=""MsoNormal"">
-This is a normal text with a character references:&nbsp; &lt; &uml;<br>
-characters which have special meaning in RTF: {}\<br>
-</p>
-<ol>
-    <li class=""MsoNormal"">This is a list item
-</ol>
-</body>
-</HTML>
-";
-      AssertEqual(expected, html);
+
+      this.VerifyCurrentLegacyScenario(rtf);
     }
 
     [TestMethod]
@@ -420,9 +383,7 @@ ffc001ffffffffffffc001ffffffffffffc001ffffffffffffc001040000002701ffff03000000
 
 \pard\sa200\sl276\slmult1\par
 }";
-      var html = Rtf.ToHtml(rtf);
-      const string expected = "<div style=\"font-size:12pt;font-family:Calibri;\"><p style=\"font-size:11pt;margin:0 0 13.3px 0;\"><img width=\"50\" height=\"10\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAYAAAD2Fg1xAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVEhLY/jPYPx/SGNjBjA99D0CxaMeGWx41CODDY96ZLDhUY8MLmz8HwBP9Ufxhe664AAAAABJRU5ErkJggg==\"></p><p style=\"font-size:11pt;margin:0 0 13.3px 0;\"><br></p><p style=\"font-size:11pt;margin:0 0 13.3px 0;\"><br></p><p style=\"font-size:11pt;margin:0 0 13.3px 0;\"><img width=\"50\" height=\"10\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAYAAAD2Fg1xAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAkSURBVEhLY/g/TMCoRwYbGPXIYAOjHhlsYNQjgw0ME4/8/w8AtpzImmRLcTYAAAAASUVORK5CYII=\"></p><p style=\"font-size:11pt;line-height:1.4;margin:0 0 13.3px 0;\"><br></p></div>";
-      AssertEqual(expected, html);
+      this.VerifyCurrentLegacyScenario(rtf);
     }
 
     [TestMethod]
@@ -436,27 +397,14 @@ ffc001ffffffffffffc001ffffffffffffc001ffffffffffffc001040000002701ffff03000000
 \par 
 \par }{\pard\plain \ltrpar\ql \li0\ri0\widctlpar\wrapdefault\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid16650015 \rtlch\fcs1 \af31507\afs22\alang1025 \ltrch\fcs0 \f31506\fs22\lang1033\langfe1033\cgrid\langnp1033\langfenp1033\insrsid16650015 {{\objattph  {\rtlch\fcs1 \af31507 \ltrch\fcs0 \cf0\insrsid16650015 }}}}\sectd \ltrsect\linex0\endnhere\sectdefaultcl\sftnbj {\rtlch\fcs1 \af31507 \ltrch\fcs0 \cf0\insrsid16650015\charrsid16650015 
 \par }}";
-      const string html = "<div style=\"font-size:12pt;font-family:&quot;Times New Roman&quot;, serif;\"><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\">Testing with an inline image</p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\"><br></p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\"><span data-index=\"0\"></span> </p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\"><br></p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\">And a file</p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\"><br></p><p style=\"text-align:left;font-family:Calibri, sans-serif;font-size:11pt;margin:0;\"><span data-index=\"1\"></span> </p></div>";
-
-      var output = Rtf.ToHtml(rtf);
-
-      AssertEqual(html, output);
+      this.VerifyCurrentLegacyScenario(rtf);
     }
 
     [TestMethod]
     public void NonBreaking()
     {
       const string rtf = "{\\rtf1\\ansicpg1252\r\n{\r\n\\fonttbl\r\n{\\f0 Times New Roman;}\r\n{\\f1 Calibri;}\r\n}\r\n{\r\n\\colortbl\r\n;\r\n\\red0\\green0\\blue255;\r\n\\red0\\green0\\blue0;\r\n}\r\n\\nouicompat\\splytwnine\\htmautsp{\\pard\\plain\\ql{\\f1\\fs24\\cf2 <p><span style=\"color:#404040;font-family:calibri;font-size:12pt;\">On d&#233;termine la couverture de votre objectif de revenu d&#8217;invalidit&#233; en analysant dans quelle mesure vos rentr&#233;es de fonds couvrent vos sorties de fonds dans l'&#233;ventualit&#233; d&#8217;une invalidit&#233;. La couverture actuelle de votre objectif est de </span><strong><span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\">79 %</span></strong><span style=\"color:#404040;font-family:calibri;font-size:12pt;\">. Votre besoin en revenu d'invalidit&#233; est de </span><strong><span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\">3\\~320\\~853 $</span></strong><span style=\"color:#404040;font-family:calibri;font-size:12pt;\"> au cours de la p&#233;riode d'invalidit&#233; projet&#233;e de </span><strong><span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\">192</span></strong><span style=\"color:#404040;font-family:calibri;font-size:12pt;\"> mois. Ce besoin inclut toutes les d&#233;penses mensuelles n&#233;cessaires comme la nourriture, les v&#234;tements et le logement. French blah.</span></p>}\\fs24\\par}\r\n}\r\n";
-      var output = Rtf.ToHtml(rtf);
-      const string expected = "<div style=\"font-size:12pt;\"><p style=\"text-align:left;margin:0;\"><span style=\"font-family:Calibri;\">&lt;p&gt;&lt;span style=\"color:#404040;font-family:calibri;font-size:12pt;\"&gt;On d&amp;#233;termine la couverture de votre objectif de revenu d&amp;#8217;invalidit&amp;#233; en analysant dans quelle mesure vos rentr&amp;#233;es de fonds couvrent vos sorties de fonds dans l'&amp;#233;ventualit&amp;#233; d&amp;#8217;une invalidit&amp;#233;. La couverture actuelle de votre objectif est de &lt;/span&gt;&lt;strong&gt;&lt;span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\"&gt;79 %&lt;/span&gt;&lt;/strong&gt;&lt;span style=\"color:#404040;font-family:calibri;font-size:12pt;\"&gt;. Votre besoin en revenu d'invalidit&amp;#233; est de &lt;/span&gt;&lt;strong&gt;&lt;span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\"&gt;3&nbsp;320&nbsp;853 $&lt;/span&gt;&lt;/strong&gt;&lt;span style=\"color:#404040;font-family:calibri;font-size:12pt;\"&gt; au cours de la p&amp;#233;riode d'invalidit&amp;#233; projet&amp;#233;e de &lt;/span&gt;&lt;strong&gt;&lt;span style=\"color:#3265a4;font-family:calibri;font-size:12pt;\"&gt;192&lt;/span&gt;&lt;/strong&gt;&lt;span style=\"color:#404040;font-family:calibri;font-size:12pt;\"&gt; mois. Ce besoin inclut toutes les d&amp;#233;penses mensuelles n&amp;#233;cessaires comme la nourriture, les v&amp;#234;tements et le logement. French blah.&lt;/span&gt;&lt;/p&gt;</span></p></div>";
-      AssertEqual(expected, output);
-    }
-
-    public static void AssertEqual(string expected, string actual)
-    {
-      if (expected != actual)
-        File.WriteAllText($@"./Fail_{DateTime.Now:yyyyMMddHHmmss}_{Guid.NewGuid().ToString("N")}.html", expected + "\r\n\r\n<br><br><br>\r\n\r\n" + actual);
-      Assert.AreEqual(expected, actual);
+      this.VerifyCurrentLegacyScenario(rtf);
     }
   }
 }

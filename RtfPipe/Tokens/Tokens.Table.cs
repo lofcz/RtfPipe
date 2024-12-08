@@ -212,11 +212,29 @@ namespace RtfPipe.Tokens
     public CellWidth(int value) : base(value) { }
   }
 
-  public class CellMergePrevious : ControlTag
+  public class CellMergeVerticalPrevious : ControlTag
   {
-    public override string Name => "clmrg";
+    public override string Name => "clvmrg";
     public override TokenType Type => TokenType.CellFormat;
   }
+
+public class CellMergeVerticalFirst : ControlTag
+{
+  public override string Name => "clvmgf";
+  public override TokenType Type => TokenType.CellFormat;
+}
+
+public class CellMergeHorizontalPrevious : ControlTag
+  {
+    public override string Name => "clmrg ";
+    public override TokenType Type => TokenType.CellFormat;
+  }
+
+public class CellMergeHorizontalFirst : ControlTag
+{
+  public override string Name => "clmgf";
+  public override TokenType Type => TokenType.CellFormat;
+}
 
   public class CellVerticalAlign : ControlWord<VerticalAlignment>
   {

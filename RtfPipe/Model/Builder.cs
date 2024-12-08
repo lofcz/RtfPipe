@@ -350,7 +350,13 @@ namespace RtfPipe.Model
                 cells[i].Remove();
                 cells[i].Styles.RemoveWhere(t => t is CellToken);
                 cells[i].Styles.Add(cellFormats[i]);
-                if (i > 0 && cellFormats[i].Styles.OfType<CellMergePrevious>().Any())
+                if (cellFormats[i].Styles.OfType<CellMergeVerticalPrevious>().Any())
+                  cellFormats[i].MergeWithAbove = true;
+                
+                if (cellFormats[i].Styles.OfType<CellMergeVerticalFirst>().Any())
+                  cellFormats[i].HasRowSpan = true;
+                
+                if (i > 0 && cellFormats[i].Styles.OfType<CellMergeHorizontalPrevious>().Any())
                   cellFormats[i - 1].ColSpan++;
                 else
                   row.Add(cells[i]);

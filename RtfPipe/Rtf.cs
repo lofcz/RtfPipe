@@ -66,7 +66,7 @@ namespace RtfPipe
       }
       else
       {
-        var html = new Model.Builder().Build(parser.Parse());
+        var html = new Model.Builder().Build(doc);
         var visitor = new Model.HtmlVisitor(writer)
         {
           Settings = settings ?? new RtfHtmlSettings()

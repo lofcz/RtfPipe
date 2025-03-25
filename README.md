@@ -1,8 +1,8 @@
 # FridaysForks.RtfPipe
 
-This is a fork of the [erdomke/RtfPipe](https://github.com/erdomke/RtfPipe) repository, which seems to be no longer maintainable.
-
-`FridaysForks.RtfPipe` is a .NET library for parsing [Rich Text Format (RTF)](https://www.microsoft.com/en-us/download/details.aspx?id=10725) 
+This is a fork of the [cezarypiatek/FridaysForks.RtfPipe](https://github.com/cezarypiatek/FridaysForks.RtfPipe) repository, downgraded to target .NET 8+.
+[RtfPipe.csproj](RtfPipe/RtfPipe.csproj)
+`RtfPipe` is a .NET library for parsing [Rich Text Format (RTF)](https://www.microsoft.com/en-us/download/details.aspx?id=10725) [RtfPipe.csproj](RtfPipe/RtfPipe.csproj)
 streams and converting them to HTML.  While initially adapted from the work started by 
 [Jani Giannoudis](https://www.codeproject.com/Articles/27431/Writing-Your-Own-RTF-Converter), it has
 been completely rewritten to support more features. When combined with the 
@@ -19,9 +19,9 @@ var html = Rtf.ToHtml(rtf);
 
 ## Installing via NuGet
 
-[![NuGet](https://img.shields.io/nuget/vpre/FridaysForks.RtfPipe.svg)](https://www.nuget.org/packages/FridaysForks.RtfPipe/)
+[![NuGet](https://img.shields.io/nuget/vpre/SharpRtfPipe.svg)](https://www.nuget.org/packages/SharpRtfPipe/)
 
-> Install-Package FridaysForks.RtfPipe
+> Install-Package SharpRtfPipe
    
 
 ## RTF Support
